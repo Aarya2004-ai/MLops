@@ -1,5 +1,5 @@
 import sys 
-import logging
+from project.logger import logging
 def error_message_details(error,error_detail:sys):
     _,_,exc_tb=error_detail.exc_info()   
     # to store the errror message
@@ -13,13 +13,14 @@ class CustomException(Exception):
 
     def __str__(self):
         return self.error_message
-
+# To debug
 if __name__ == "__main__":
     try:
         a = 1/0
     except Exception as e:
         print("INSIDE EXCEPT")   # sanity check
-        try:
-            raise CustomException(e, sys)
-        except CustomException as ce:
-            print("OUTPUT:", ce)
+        logging.info("Divide by zero")
+        a=CustomException(e, sys)
+        raise a
+        
+        
